@@ -1,0 +1,10 @@
+[2025-05-29T17:57:06.049Z] INFO: Initializing EV Prediction Engine
+[2025-05-29T17:57:06.051Z] INFO: Prediction Service initialized
+[2025-05-29T17:57:06.062Z] INFO: Server running on port 3000
+[2025-05-29T17:58:24.035Z] INFO: 127.0.0.1 - - [29/May/2025:17:58:24 +0000] "GET /health HTTP/1.1" 200 54 "-" "curl/7.81.0"
+[2025-05-29T18:12:56.362Z] INFO: Initializing EV Prediction Engine
+[2025-05-29T18:12:56.364Z] INFO: Prediction Service initialized
+[2025-05-29T18:12:56.375Z] INFO: Server running on port 3000
+[2025-05-29T18:15:37.102Z] INFO: Initializing EV Prediction Engine
+[2025-05-29T18:15:37.104Z] INFO: Prediction Service initialized
+[2025-05-29T18:15:37.116Z] INFO: Server running in development mode on port 3000

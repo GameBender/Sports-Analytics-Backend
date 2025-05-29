@@ -1,0 +1,318 @@
+/**
+ * API client for API-Football
+ * Handles fetching data from API-Football API
+ */
+import axios from 'axios';
+import config from '../config/env';
+import logger from '../utils/logger';
+
+class FootballApiClient {
+  private baseUrl: string;
+  private apiKey: string;
+  private headers: Record<string, string>;
+
+  constructor() {
+    this.baseUrl = config.FOOTBALL_API_BASE_URL;
+    this.apiKey = config.FOOTBALL_API_KEY;
+    this.headers = {
+      'x-apisports-key': this.apiKey
+    };
+  }
+
+  /**
+   * Get all available leagues
+   */
+  async getLeagues(): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/leagues`, {
+        headers: this.headers
+      });
+      logger.info('Successfully fetched all leagues from API-Football');
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching leagues from API-Football: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get leagues by country
+   * @param country Country name
+   */
+  async getLeaguesByCountry(country: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/leagues`, {
+        headers: this.headers,
+        params: { country }
+      });
+      logger.info(`Successfully fetched leagues for country: ${country}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching leagues for country ${country}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get teams in a league
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getTeams(leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/teams`, {
+        headers: this.headers,
+        params: { league: leagueId, season }
+      });
+      logger.info(`Successfully fetched teams for league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching teams for league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get team statistics
+   * @param teamId Team ID
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getTeamStatistics(teamId: number, leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/teams/statistics`, {
+        headers: this.headers,
+        params: { team: teamId, league: leagueId, season }
+      });
+      logger.info(`Successfully fetched statistics for team ID: ${teamId}, league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching statistics for team ID ${teamId}, league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixtures (matches) by date
+   * @param date Date in format YYYY-MM-DD
+   */
+  async getFixturesByDate(date: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures`, {
+        headers: this.headers,
+        params: { date }
+      });
+      logger.info(`Successfully fetched fixtures for date: ${date}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching fixtures for date ${date}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixtures by league and season
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getFixturesByLeague(leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures`, {
+        headers: this.headers,
+        params: { league: leagueId, season }
+      });
+      logger.info(`Successfully fetched fixtures for league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching fixtures for league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixtures by team
+   * @param teamId Team ID
+   * @param season Season (e.g., "2023")
+   */
+  async getFixturesByTeam(teamId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures`, {
+        headers: this.headers,
+        params: { team: teamId, season }
+      });
+      logger.info(`Successfully fetched fixtures for team ID: ${teamId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching fixtures for team ID ${teamId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixture statistics
+   * @param fixtureId Fixture ID
+   */
+  async getFixtureStatistics(fixtureId: number): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures/statistics`, {
+        headers: this.headers,
+        params: { fixture: fixtureId }
+      });
+      logger.info(`Successfully fetched statistics for fixture ID: ${fixtureId}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching statistics for fixture ID ${fixtureId}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixture events (goals, cards, etc.)
+   * @param fixtureId Fixture ID
+   */
+  async getFixtureEvents(fixtureId: number): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures/events`, {
+        headers: this.headers,
+        params: { fixture: fixtureId }
+      });
+      logger.info(`Successfully fetched events for fixture ID: ${fixtureId}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching events for fixture ID ${fixtureId}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixture lineups
+   * @param fixtureId Fixture ID
+   */
+  async getFixtureLineups(fixtureId: number): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures/lineups`, {
+        headers: this.headers,
+        params: { fixture: fixtureId }
+      });
+      logger.info(`Successfully fetched lineups for fixture ID: ${fixtureId}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching lineups for fixture ID ${fixtureId}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get fixture player statistics
+   * @param fixtureId Fixture ID
+   */
+  async getFixturePlayerStats(fixtureId: number): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/fixtures/players`, {
+        headers: this.headers,
+        params: { fixture: fixtureId }
+      });
+      logger.info(`Successfully fetched player statistics for fixture ID: ${fixtureId}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching player statistics for fixture ID ${fixtureId}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get league standings
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getStandings(leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/standings`, {
+        headers: this.headers,
+        params: { league: leagueId, season }
+      });
+      logger.info(`Successfully fetched standings for league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching standings for league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get player statistics
+   * @param playerId Player ID
+   * @param season Season (e.g., "2023")
+   */
+  async getPlayerStatistics(playerId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/players`, {
+        headers: this.headers,
+        params: { id: playerId, season }
+      });
+      logger.info(`Successfully fetched statistics for player ID: ${playerId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching statistics for player ID ${playerId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get betting odds for fixtures
+   * @param fixtureId Fixture ID
+   */
+  async getOdds(fixtureId: number): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/odds`, {
+        headers: this.headers,
+        params: { fixture: fixtureId }
+      });
+      logger.info(`Successfully fetched odds for fixture ID: ${fixtureId}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching odds for fixture ID ${fixtureId}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get betting odds by league
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getOddsByLeague(leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/odds`, {
+        headers: this.headers,
+        params: { league: leagueId, season }
+      });
+      logger.info(`Successfully fetched odds for league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching odds for league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Get injuries
+   * @param leagueId League ID
+   * @param season Season (e.g., "2023")
+   */
+  async getInjuries(leagueId: number, season: string): Promise<any> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/injuries`, {
+        headers: this.headers,
+        params: { league: leagueId, season }
+      });
+      logger.info(`Successfully fetched injuries for league ID: ${leagueId}, season: ${season}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`Error fetching injuries for league ID ${leagueId}, season ${season}: ${error}`);
+      throw error;
+    }
+  }
+}
+
+export default new FootballApiClient();
