@@ -1,7 +1,7 @@
 /**
  * API routes for predictions
  */
-import express from 'express';
+import express, { Request, Response } from 'express';
 import predictionService from '../services/predictionService';
 import logger from '../utils/logger';
 
@@ -11,7 +11,7 @@ const router = express.Router();
  * GET /api/predictions/:sport
  * Get betting opportunities for a specific sport
  */
-router.get('/:sport', async (req, res) => {
+router.get('/:sport', async (req: Request, res: Response) => {
   try {
     const { sport } = req.params;
     const { date, bankroll } = req.query;
@@ -33,7 +33,7 @@ router.get('/:sport', async (req, res) => {
  * GET /api/predictions
  * Get all betting opportunities across multiple sports
  */
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const { sports, date, bankroll } = req.query;
     
@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
  * GET /api/predictions/:sport/player-props
  * Get player prop betting opportunities for a specific sport
  */
-router.get('/:sport/player-props', async (req, res) => {
+router.get('/:sport/player-props', async (req: Request, res: Response) => {
   try {
     const { sport } = req.params;
     const { date, bankroll } = req.query;
